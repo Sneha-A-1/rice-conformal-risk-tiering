@@ -1,0 +1,84 @@
+{
+  "paddy": {
+    "images": 10407,
+    "exact_duplicate_files": 146,
+    "exact_duplicate_groups": 72,
+    "near_duplicate_groups": 6143,
+    "images_in_multi_member_groups": 5721,
+    "label_conflict_groups": 25,
+    "images_in_label_conflict_groups": 304,
+    "split_counts": {
+      "train": 6767,
+      "holdout": 2601,
+      "val": 1039
+    },
+    "split_groups": {
+      "holdout": 1537,
+      "train": 3996,
+      "val": 610
+    },
+    "class_by_split": {
+      "holdout": {
+        "bacterial_leaf_blight": 120,
+        "bacterial_leaf_streak": 95,
+        "bacterial_panicle_blight": 84,
+        "blast": 440,
+        "brown_spot": 240,
+        "dead_heart": 360,
+        "downy_mildew": 142,
+        "hispa": 400,
+        "normal": 441,
+        "tungro": 279
+      },
+      "train": {
+        "bacterial_leaf_blight": 311,
+        "bacterial_leaf_streak": 249,
+        "bacterial_panicle_blight": 221,
+        "blast": 1122,
+        "brown_spot": 624,
+        "dead_heart": 938,
+        "downy_mildew": 418,
+        "hispa": 1034,
+        "normal": 1147,
+        "tungro": 703
+      },
+      "val": {
+        "bacterial_leaf_blight": 48,
+        "bacterial_leaf_streak": 36,
+        "bacterial_panicle_blight": 32,
+        "blast": 176,
+        "brown_spot": 101,
+        "dead_heart": 144,
+        "downy_mildew": 60,
+        "hispa": 160,
+        "normal": 176,
+        "tungro": 106
+      }
+    }
+  },
+  "sethy": {
+    "images": 5932,
+    "unique_files": 4794,
+    "exact_duplicate_files": 2234,
+    "near_duplicate_groups": 320,
+    "groups_per_class": {
+      "bacterial_leaf_blight": 75,
+      "blast": 79,
+      "brown_spot": 101,
+      "tungro": 65
+    },
+    "images_per_class": {
+      "brown_spot": 1600,
+      "bacterial_leaf_blight": 1584,
+      "blast": 1440,
+      "tungro": 1308
+    },
+    "label_conflict_groups": 0
+  },
+  "cross_dataset_near_duplicates": 0,
+  "phash_hamming_threshold": 8,
+  "exact_hash_source": {
+    "paddy": "original_manifest",
+    "sethy": "original_manifest"
+  }
+}

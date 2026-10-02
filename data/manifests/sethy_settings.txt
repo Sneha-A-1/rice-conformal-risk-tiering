@@ -1,0 +1,5 @@
+source_folder=sethy
+resize_shorter_side=256
+jpeg_quality=92
+excluded=[]
+files=5932

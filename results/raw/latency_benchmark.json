@@ -1,0 +1,65 @@
+{
+ "machine": "x86_64",
+ "processor": "x86_64",
+ "cpu_threads": 2,
+ "load_average_before": [
+  0.5673828125,
+  0.43896484375,
+  1.05712890625
+ ],
+ "torch": "2.14.1+cu130",
+ "n_models_in_ensemble": 5,
+ "n_trained_seeds_available": 1,
+ "input_hw": [
+  298,
+  224
+ ],
+ "edge_forward_ms": {
+  "mean": 37.92868089335873,
+  "p50": 32.73281199926714,
+  "p95": 81.23983230016165
+ },
+ "preprocess_ms": {
+  "mean": 2.483442296712989
+ },
+ "ensemble_forward_ms": {
+  "mean": 171.55758413000513,
+  "p50": 165.05679999954737,
+  "p95": 204.3116420001752
+ },
+ "gradcam_ms": {
+  "mean": 113.07938265001212,
+  "p50": 110.2765415007525,
+  "p95": 142.83835539881693
+ },
+ "tiering_us": 9.505578199969023,
+ "edge_model_params_M": 4.214842,
+ "edge_model_file_MB": 17.047637,
+ "original_image_bytes": {
+  "mean": 78746.08446238108,
+  "median": 79684.0,
+  "p95": 102412.7
+ },
+ "hmac": {
+  "600": {
+   "sign_us": 2.4801609997666674,
+   "verify_us": 2.772355999695719,
+   "all_valid": true,
+   "overhead_bytes": 52
+  },
+  "16000": {
+   "sign_us": 16.90930849963479,
+   "verify_us": 16.23450250008318,
+   "all_valid": true,
+   "overhead_bytes": 52
+  },
+  "79684": {
+   "sign_us": 97.68851399985579,
+   "verify_us": 73.12919500054704,
+   "all_valid": true,
+   "overhead_bytes": 52
+  },
+  "tamper_rejected": true,
+  "replay_rejected": true
+ }
+}

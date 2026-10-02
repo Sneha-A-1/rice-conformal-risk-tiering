@@ -1,0 +1,96 @@
+# Central configuration. Every script reads this file; values reported in the
+# manuscript (Tables of hyperparameters and simulation parameters) come from here.
+
+paths:
+  data_root: ../data            # folder holding paddy/ and sethy/ (see data/README.md)
+  processed: data/processed     # indices, splits and image caches written here
+  weights: ../weights           # ImageNet-pretrained weights (scripts/download_weights.sh)
+  results: results
+
+seed: 2026
+
+audit:
+  phash_hamming_threshold: 8    # near-duplicate threshold (bits out of 64), dihedral-invariant
+
+split:                          # group-aware stratified split of Paddy Doctor
+  n_folds: 20
+  train_folds: 13               # 65 %
+  val_folds: 2                  # 10 %  (early stopping, temperature scaling)
+  holdout_folds: 5              # 25 %  (repeated calibration/test splits)
+
+image:
+  cache_short_side: 256
+  paddy_cache_hw: [341, 256]    # portrait H x W after resizing (shorter side 256)
+  sethy_cache_hw: [256, 256]
+  input_size: 224
+  mean: [0.485, 0.456, 0.406]
+  std: [0.229, 0.224, 0.225]
+
+train:
+  arch: mobilenetv3_large_100
+  weights_file: mobilenetv3_large_100_ra-f55367f5.pth
+  seeds: [0, 1, 2, 3, 4]
+  epochs: 10
+  batch_size: 32
+  lr: 0.0006
+  weight_decay: 0.05
+  warmup_epochs: 1
+  drop_rate: 0.2
+  rrc_scale: [0.35, 1.0]
+  color_jitter: 0.2
+  threads: 2
+
+classes: [bacterial_leaf_blight, bacterial_leaf_streak, bacterial_panicle_blight, blast,
+          brown_spot, dead_heart, downy_mildew, hispa, normal, tungro]
+
+# Sethy folder name -> Paddy Doctor class
+sethy_map: {Bacterialblight: bacterial_leaf_blight, Blast: blast, Brownspot: brown_spot, Tungro: tungro}
+
+risk:
+  # high-severity set H (literature-justified; see manuscript Section 2.4)
+  high_severity: [blast, bacterial_leaf_blight, tungro, bacterial_panicle_blight]
+  # broader alternative used in the sensitivity analysis
+  high_severity_broad: [blast, bacterial_leaf_blight, tungro, bacterial_panicle_blight, bacterial_leaf_streak, brown_spot]
+  alpha: 0.10                  # default miscoverage level
+  alphas: [0.01, 0.02, 0.05, 0.10, 0.15, 0.20]
+
+conformal:
+  n_splits: 100                # random group-aware calibration/test splits of the holdout
+
+poisoning:
+  rhos: [0.0, 0.1, 0.2, 0.3, 0.4]
+  trusted_fraction: 0.10
+
+scheduling:
+  # Plausible rural deployment (assumptions, varied in the sensitivity analysis)
+  params:
+    n_fog: 4
+    devices_per_fog: 250
+    fog_servers: 2
+    fog_speed: 0.25             # relative to the reference CPU used for latency measurement (single-board gateway)
+    cloud_servers: 16
+    cloud_speed: 2.0
+    B_access: 4                 # Mbit/s device uplink (4G, rural)
+    L_access: 0.040
+    B_backhaul: 20              # Mbit/s fog-to-fog
+    L_backhaul: 0.015
+    B_wan: 5                    # Mbit/s fog-to-cloud uplink (shared, rural backhaul)
+    L_wan: 0.100
+    alert_bytes: 16000
+    record_bytes: 600
+    P_tx: 1.0                   # W device radio
+    P_fog: 10.0                 # W per busy fog server
+    P_cloud: 30.0               # W per busy cloud server incl. facility overhead
+    cloud_price_per_server_hour: 0.04
+    batch_window: 1.0
+    fog_reserved_for_urgent: 1
+  deadlines: {URGENT: 10.0, STRATEGIC: 120.0, ROUTINE: 3600.0}
+  duration_s: 1800
+  rates: [8, 16, 24, 32, 40, 48]   # aggregate captures per second
+  base_rate: 16
+  surge: {start: 600, length: 600, factor: 3}
+  reps: 20                     # outbreak scenario (per bandwidth level)
+  outbreak_bw_mbps: [5, 2.5]   # moderate and constrained fog-to-cloud uplink
+  load_reps: 10
+  metaheuristic: {pop: 20, iters: 20}
+  sensitivity: {fog_speed: [0.125, 0.25, 0.5], B_wan_mbps: [2.5, 5, 10], reps: 10}

@@ -1,0 +1,21 @@
+# data and large artefacts are not redistributed
+data/processed/*.npy
+data/raw/
+../data/
+results/raw/models/*/best.pt
+results/raw/models/*/feats_*.npy
+results/raw/imagenet_feats_paddy.npy
+__pycache__/
+*.pyc
+manuscript/*.aux
+manuscript/*.log
+manuscript/*.bbl
+manuscript/*.blg
+manuscript/*.out
+manuscript/figures/src/*.aux
+manuscript/figures/src/*.log
+.DS_Store
+results/raw/models/*/last.pt
+manuscript/supplementary/*.aux
+manuscript/supplementary/*.log
+manuscript/supplementary/*.out

@@ -1,0 +1,5 @@
+source_folder=paddy-disease-classification
+resize_shorter_side=256
+jpeg_quality=92
+excluded=['sample_submission.csv', 'test_images']
+files=10408
